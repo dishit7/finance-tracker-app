@@ -32,7 +32,7 @@ app.post("/signup", async (req, res) => {
       const token = jwt.sign({ userId: user.id }, "your_secret_key", {
         expiresIn: "1h", // Token expiration time
       });
-  
+
       res.json({ user, token });
     } catch (error) {
       console.error("Error signing up:", error);
@@ -40,6 +40,9 @@ app.post("/signup", async (req, res) => {
     }
   });
   
+
+
+
   // Signin route
   app.post("/signin", async (req, res) => {
     try {
@@ -68,5 +71,72 @@ app.post("/signup", async (req, res) => {
       res.status(500).json({ error: "An error occurred while signing in" });
     }
   });
+
+
+
+
+//Rout to add category  
+app.post("/category",async(req,res)=>{
+  try {
+  const {emoji,category_name}= req.body;
+  const result=await db.query("INSERT INTO expense_category (emoji,category_name) VALUES ($1,$2)",[emoji,category_name])
+  console.log(result)
+  return res.send ("query successfull")
+  }
+  catch(err){
+    console.log(err);
+    return res.send("query failed")
+  }
+})
+
+app.get("/category",async(req,res)=>{
+  try{
+  const result= await db.query("SELECT * FROM expense_category")
+  return res.send(result.rows)
+  
+  }
+  catch{
+    console.log(err)
+    return res.send("query failed")
+  }
+})
+
+//Route to add expense
+app.post("/expense",async(req,res)=>{
+  try{
+      const {user_id,amount,category_id}=req.body
+      const result=await db.query("INSERT INTO expenses (amount,user_id,category_id) VALUES ($1,$2,$3)",[amount,user_id,category_id])
+      console.log(result)
+      return res.send("query successful")    }
+  catch(err){
+    console.log(err)
+    return res.send("query failed")    
+
+  }
+})
+//route to get all expenses of today
+app.get("/expense",async(req,res)=>{
+  try{
+    const result=await db.query("SELECT credited_at,amount FROM expenses WHERE DATE(credited_at)=CURRENT_DATE;")
+    console.log(result.rows)
+    return res.json(result.rows)
+  }catch(err){
+    console.log(err)
+    return res.send("query failed")
+  }
+  /**/
+})
+
+app.get("/sum",async(req,res)=>{
+  try{
+    const result =await db.query(" SELECT SUM(amount) FROM expenses WHERE EXTRACT(MONTH FROM credited_at)=EXTRACT (MONTH FROM CURRENT_DATE) ;")
+    return res.send(result.rows[0])
+  }catch(err){
+    console.log(err)
+    return res.send("query failed")
+  }
+  /**/
+})
+
 
 app.listen(5050,()=>console.log("app is running on port 5050"))
