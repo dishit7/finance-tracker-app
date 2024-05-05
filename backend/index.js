@@ -1,9 +1,10 @@
  import pg from "pg";
  import express from "express"
  import jwt from "jsonwebtoken" 
-
+ import cors from "cors"
 const app = express();
 const port = 5050;
+app.use(cors())
 app.use(express.json());
 
 const db = new pg.Client({
@@ -115,9 +116,13 @@ app.post("/expense",async(req,res)=>{
   }
 })
 //route to get all expenses of today
-app.get("/expense",async(req,res)=>{
+app.get("/expense/:user_id",async(req,res)=>{
   try{
-    const result=await db.query("SELECT credited_at,amount FROM expenses WHERE DATE(credited_at)=CURRENT_DATE;")
+    const user_id=req.params.user_id
+    console.log(user_id)
+    
+    const result=await db.query(`SELECT expenses.amount, TO_CHAR(expenses.credited_at,'YYYY-MM-DD') AS credited_date, expense_category.emoji, expense_category.category_name FROM expenses  LEFT JOIN expense_category ON expenses.category_id = expense_category.category_id WHERE EXTRACT(MONTH FROM expenses.credited_at) = EXTRACT(MONTH FROM CURRENT_DATE) AND expenses.user_id = 
+    '`+user_id+`';`)
     console.log(result.rows)
     return res.json(result.rows)
   }catch(err){
@@ -140,3 +145,14 @@ app.get("/sum",async(req,res)=>{
 
 
 app.listen(5050,()=>console.log("app is running on port 5050"))
+
+
+
+//"d9d9f33c-ecef-46a0-91b2-7d52fc5a4878"
+//"e895d488-e8fd-4f02-8ea4-149941928d13"
+/*SELECT expenses.amount, DATE(credited_at), expense_category.emoji, expense_category.category_name
+FROM expenses 
+LEFT JOIN expense_category ON expenses.category_id = expense_category.category_id
+WHERE EXTRACT(MONTH FROM expenses.credited_at) = EXTRACT(MONTH FROM CURRENT_DATE)
+AND expenses.user_id = 'd9d9f33c-ecef-46a0-91b2-7d52fc5a4878';
+*/
