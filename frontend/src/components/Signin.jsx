@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import axios from "axios";
-
+import { useNavigate } from "react-router-dom"; 
 const Signin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
-
+  const[success,setSuccess]=useState(false)
+  const navigate=useNavigate()
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -13,8 +14,10 @@ const Signin = () => {
         email,
         password,
       });
-      console.log(response.data); // Assuming response contains user and token
-      setError(null);
+      console.log(response.data.token); // Assuming response contains user and token
+      localStorage.setItem('token',response.data.token)
+      setSuccess(true);
+      navigate("/dashboard")
       // Handle successful signin (redirect user, set authentication state, etc.)
     } catch (err) {
       setError("Invalid email or password");

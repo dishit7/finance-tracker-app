@@ -120,8 +120,8 @@ app.get("/expense/:user_id",async(req,res)=>{
   try{
     const user_id=req.params.user_id
     console.log(user_id)
-    
-    const result=await db.query(`SELECT expenses.amount, TO_CHAR(expenses.credited_at,'YYYY-MM-DD') AS credited_date, expense_category.emoji, expense_category.category_name FROM expenses  LEFT JOIN expense_category ON expenses.category_id = expense_category.category_id WHERE EXTRACT(MONTH FROM expenses.credited_at) = EXTRACT(MONTH FROM CURRENT_DATE) AND expenses.user_id = 
+    const result=await db.query(`SELECT expenses.amount, TO_CHAR(expenses.credited_at,'YYYY-MM-DD') AS credited_date,    TO_CHAR(expenses.credited_at, 'HH12:MI AM') AS credited_time, 
+    expense_category.emoji, expense_category.category_name FROM expenses  LEFT JOIN expense_category ON expenses.category_id = expense_category.category_id WHERE EXTRACT(MONTH FROM expenses.credited_at) = EXTRACT(MONTH FROM CURRENT_DATE) AND expenses.user_id = 
     '`+user_id+`';`)
     console.log(result.rows)
     return res.json(result.rows)
