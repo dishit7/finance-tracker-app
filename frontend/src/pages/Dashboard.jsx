@@ -3,8 +3,7 @@ import  {TotalExpense}  from "../components/TotatExpense"
 export const Dashboard = () => {
     return (
         <>
-          <TotalExpense />
-          <DisplayExpenses />
+           <DisplayExpenses />
         </>
     )
 }

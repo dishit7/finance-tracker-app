@@ -13,6 +13,14 @@ export const TotalExpense=()=>{
         )
     },[sum])
     return (<>
-          <div>{sum}</div>
+    <div  className='flex  flex-col  mt-20 h-56 '>
+          <h1 className='text-gray-400 mx-auto '>Spent this month</h1>
+          <div className='flex justify-center mt-5 text-red-500'>
+            <h1 className='text-4xl font-bold'>$-</h1>
+            <h1 className='text-6xl'>{sum}</h1>
+  
+          </div>
+          </div>
+
     </>)
 }
