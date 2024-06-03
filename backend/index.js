@@ -16,7 +16,9 @@ const db = new pg.Client({
 });
 db.connect();
 
-
+app.get("/",(req,res)=>{
+  res.send("hi")
+})
 app.post("/signup", async (req, res) => {
     try {
       const { email, name, password } = req.body;
@@ -149,7 +151,7 @@ app.get("/sum",async(req,res)=>{
     return res.send("query failed")
   }
   /**/
-})//"d9d9f33c-ecef-46a0-91b2-7d52fc5a4878"
+})//"d9d9f33c-ecef-46a0-91b2-7d52fc5a487
 
 
 app.listen(5050,'0.0.0.0',()=>console.log("app is running on port 5050"))
