@@ -8,11 +8,14 @@ app.use(cors())
 app.use(express.json());
 
 const db = new pg.Client({
-  user: "postgres",
-  host: "localhost",
+  user: "neondb_owner",
+  host: "ep-gentle-pond-a5m8vh0g-pooler.us-east-2.aws.neon.tech",
   database: "finance-tracker",
-  password: "Bulbasaur_47",
-  port: 3000,
+  password: "Acfpd8yJaE6O",
+  port: 5432, // Default PostgreSQL port
+  ssl: {
+    rejectUnauthorized: false
+  }
 });
 db.connect();
 
