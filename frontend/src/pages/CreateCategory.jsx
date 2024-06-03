@@ -11,7 +11,7 @@ export const CreateCategory = () => {
 
         console.log(emoji+category_name)
 
-    const response=await axios.post("http://localhost:5050/category" ,{
+    const response=await axios.post("https://finance-tracker-app-eosin.vercel.app/category" ,{
         emoji,
         category_name
     })

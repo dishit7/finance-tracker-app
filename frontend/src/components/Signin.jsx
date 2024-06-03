@@ -10,7 +10,7 @@ const Signin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:5050/signin", {
+      const response = await axios.post("https://finance-tracker-app-eosin.vercel.app/signin", {
         email,
         password,
       });

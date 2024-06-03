@@ -47,7 +47,7 @@ export const AddExpense = () => {
   const category_id=selectedCategory.category_id
   const amount=inputRef.current.value
   console.log("category:id "+category_id+"amount"+amount+"userId"+user_id)
-  const response= await axios.post("http://localhost:5050/expense",{
+  const response= await axios.post("https://finance-tracker-app-eosin.vercel.app/expense",{
     user_id,
     amount,
     category_id
