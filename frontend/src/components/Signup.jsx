@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
@@ -7,7 +8,7 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
-
+  const navigate=useNavigate()
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -16,11 +17,17 @@ const Signup = () => {
         name,
         password,
       });
+      localStorage.setItem('token',response.data.token)
+
       setSuccess(true);
       setError(null);
+      setTimeout(() => {
+        navigate("/dashboard");
+      }, 2000);
       console.log(response.data); // Assuming response contains user and token
     } catch (err) {
       setError("An error occurred while signing up");
+      alert(err)
       console.error("Error signing up:", err);
     }
   };
@@ -100,9 +107,14 @@ const Signup = () => {
         {success && (
           <p className="text-green-500 text-center">
             Signup successful!
+
           </p>
-        )}
+        
+        )
+    
+        }
       </div>
+
     </div>
   );
 };

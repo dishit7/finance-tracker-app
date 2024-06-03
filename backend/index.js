@@ -134,17 +134,25 @@ app.get("/expense/:user_id",async(req,res)=>{
 
 app.get("/sum",async(req,res)=>{
   try{
-    const result =await db.query(" SELECT SUM(amount) FROM expenses WHERE EXTRACT(MONTH FROM credited_at)=EXTRACT (MONTH FROM CURRENT_DATE) ;")
-    return res.send(result.rows[0])
+    const {user_id}=req.query
+
+    const result = await db.query(
+      `SELECT SUM(amount) 
+       FROM expenses 
+       WHERE EXTRACT(MONTH FROM credited_at) = EXTRACT(MONTH FROM CURRENT_DATE) 
+       AND user_id = $1`, 
+      [user_id]
+    );
+        return res.send(result.rows[0])
   }catch(err){
     console.log(err)
     return res.send("query failed")
   }
   /**/
-})
+})//"d9d9f33c-ecef-46a0-91b2-7d52fc5a4878"
 
 
-app.listen(5050,()=>console.log("app is running on port 5050"))
+app.listen(5050,'0.0.0.0',()=>console.log("app is running on port 5050"))
 
 
 
