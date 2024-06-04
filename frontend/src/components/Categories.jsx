@@ -7,7 +7,7 @@
 
 
     useEffect(()=>{
-        const result=axios.get("https://finance-tracker-app-eosin.vercel.app/category").then((response)=>{
+        const result=axios.get("https://finance-tracker-api-gray.vercel.app/category").then((response)=>{
             setCategories(response.data)
             console.log(categories)
         })

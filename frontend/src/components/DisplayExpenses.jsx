@@ -15,7 +15,7 @@ export const DisplayExpenses = () => {
 
   useEffect(() => {
     const result = axios
-      .get(`https://finance-tracker-app-eosin.vercel.app/expense/${user_id}`)
+      .get(`https://finance-tracker-api-gray.vercel.app/expense/${user_id}`)
       .then((response) => {
         setExpenses(response.data);
         console.log(expenses);

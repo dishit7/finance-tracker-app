@@ -33,7 +33,7 @@ export const TotalExpense=()=>{
     const [sum,setSum]=useState(0)
     useEffect(()=>{
         console.log("userid in totexpense is "+user_id)
-    const result=  axios.get('http://localhost:5050/sum',{
+    const result=  axios.get('https://finance-tracker-api-gray.vercel.app/sum',{
     params:{user_id}
     
     }).then((response)=>{

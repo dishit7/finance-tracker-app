@@ -12,7 +12,7 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("https://finance-tracker-app-eosin.vercel.app/signup", {
+      const response = await axios.post("https://finance-tracker-api-gray.vercel.app/signup", {
         email,
         name,
         password,
