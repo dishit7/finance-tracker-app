@@ -12,7 +12,10 @@ const db = new pg.Client({
   host: "ep-gentle-pond-a5m8vh0g-pooler.us-east-2.aws.neon.tech",
   database: "finance-tracker",
   password: "Acfpd8yJaE6O",
-  port: 5432, // Default PostgreSQL port
+  port: 5432, // Default PostgreSQL port,
+  ssl: {
+    rejectUnauthorized: false, // set this to true for stricter security
+  },
  
 });
 db.connect();
