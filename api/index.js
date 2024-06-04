@@ -13,9 +13,7 @@ const db = new pg.Client({
   database: "finance-tracker",
   password: "Acfpd8yJaE6O",
   port: 5432, // Default PostgreSQL port
-  ssl: {
-    rejectUnauthorized: false
-  }
+ 
 });
 db.connect();
 
