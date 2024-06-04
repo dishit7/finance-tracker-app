@@ -4,7 +4,12 @@
  import cors from "cors"
 const app = express();
 const port = 5050;
-app.use(cors())
+app.use(cors(
+  {origin:"https://finance-tracker-app-frontend.vercel.app/",
+  methods:"GET,POST,PUT,PACTH,DELETE",
+  credentials: true, // Allow cookies to be sent
+}
+))
 app.use(express.json());
 
 const db = new pg.Client({
