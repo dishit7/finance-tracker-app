@@ -5,7 +5,7 @@ export const Expenseitem=({date,category,amount,emoji,time})=>{
     
     <div className="flex justify-between items-center pb-14">
         <h1 className="text-gray-400"> {dateFormatter(date)}</h1>
-        <h1 className="  text-gray-400 text-lg">$-{amount}</h1>
+        <h1 className="  text-gray-400 text-lg">₹-{amount}</h1>
     </div>
     <div className="flex justify-between pb-3 ">
     <div className="flex gap-5">
