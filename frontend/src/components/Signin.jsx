@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom"; 
 const Signin = () => {
+  const apiUrl =  import.meta.env.VITE_API_URL;
+  console.log(apiUrl)
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
@@ -10,7 +12,7 @@ const Signin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("https://finance-tracker-api-gray.vercel.app/signin", {
+      const response = await axios.post(`${apiUrl}/signin`, {
         email,
         password,
       });

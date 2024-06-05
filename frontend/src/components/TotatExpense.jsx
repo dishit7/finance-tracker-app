@@ -4,6 +4,7 @@ import { jwtDecode } from 'jwt-decode';
 
 
 export const TotalExpense=()=>{
+  const apiUrl =  import.meta.env.VITE_API_URL;
 
     const [user_id,setUserId]=useState(null)
      const getUserIdFromToken = () => {
@@ -33,7 +34,7 @@ export const TotalExpense=()=>{
     const [sum,setSum]=useState(0)
     useEffect(()=>{
         console.log("userid in totexpense is "+user_id)
-    const result=  axios.get('https://finance-tracker-api-gray.vercel.app/sum',{
+    const result=  axios.get(`${apiUrl}/sum`,{
     params:{user_id}
     
     }).then((response)=>{

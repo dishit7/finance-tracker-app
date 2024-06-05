@@ -4,12 +4,27 @@
  import cors from "cors"
 const app = express();
 const port = 5050;
-app.use(cors(
-  {origin:"https://finance-tracker-app-frontend.vercel.app",
-  methods:"GET,POST,PUT,PACTH,DELETE",
+// Define allowed origins
+const allowedOrigins = [
+  "https://finance-tracker-app-frontend.vercel.app", // Production URL
+  "http://localhost:5173" // Local development URL
+];
+
+// Configure CORS
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  methods: "GET,POST,PUT,PATCH,DELETE",
   credentials: true, // Allow cookies to be sent
-}
-))
+};
+
+app.use(cors(corsOptions));
+
 app.use(express.json());
 
 const db = new pg.Client({

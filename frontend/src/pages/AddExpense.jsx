@@ -2,10 +2,12 @@ import axios from "axios";
 import { Categories } from "../components/Categories";
 import { useState,useRef,useEffect } from "react";
 import {jwtDecode} from "jwt-decode";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
+
+import  Logo   from '../assets/left-arrow-back-svgrepo-com.svg?react';
 export const AddExpense = () => {
 
-
+    const apiUrl =  import.meta.env.VITE_API_URL;
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [user_id,setUserId]=useState(null)
     const inputRef= useRef(null)
@@ -47,16 +49,17 @@ export const AddExpense = () => {
   const category_id=selectedCategory.category_id
   const amount=inputRef.current.value
   console.log("category:id "+category_id+"amount"+amount+"userId"+user_id)
-  const response= await axios.post("https://finance-tracker-api-gray.vercel.app/expense",{
+  const response= await axios.post(`${apiUrl}/expense`,{
     user_id,
     amount,
     category_id
   }).then((response)=>{
     console.log(response.data)
   alert("Expense Added")
-  setTimeout(() => {
-    navigate("/dashboard");
-  }, 2000);})
+  // setTimeout(() => {
+  //   navigate("/dashboard");
+  // }, 2000);
+})
 }
   catch(err){
     console.log(err)
@@ -86,6 +89,8 @@ export const AddExpense = () => {
               </div>
             )}
             </div>
+            <div className="h-10 w-full mb-10 pl-3 text-left"><Link to="/dashboard"><Logo className="h-10 w-10"/></Link></div> 
+
             <div className="mt-auto border border-gray-200 border-t rounded-t-3xl w-full h-1/2 " >
               <h1 className="text-2xl   text-gray-500 text-center my-4">
                 Expenses

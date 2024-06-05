@@ -1,6 +1,11 @@
 import { Button } from "../ReusableComponents/Button";
 import axios from "axios"
+import { useNavigate,Link } from "react-router-dom";
+import  Logo   from '../assets/left-arrow-back-svgrepo-com.svg?react';
+
 export const CreateCategory = () => {
+  const apiUrl = import.meta.env.VITE_API_URL;
+  const navigate=useNavigate()
     async function createTag(e){
         try{
             console.log("hi")
@@ -11,12 +16,13 @@ export const CreateCategory = () => {
 
         console.log(emoji+category_name)
 
-    const response=await axios.post("https://finance-tracker-api-gray.vercel.app/category" ,{
+    const response=await axios.post(`${apiUrl}/category` ,{
         emoji,
         category_name
     })
     console.log(response.data)
    alert("Catgory added")
+    
 }catch(err){
     alert("error occured pls try again")
     console.log(err)
@@ -28,6 +34,7 @@ export const CreateCategory = () => {
         <div className="bg-black colour text-white sm:max-w-lg h-screen mx-auto flex flex-col justify-center items-center">
           <div className="  border-t border-zinc-200 w-full">
             <h1 className="text-gray-400 text-center mb-5 pt-3 ">NEW TAG</h1>
+           <div className="h-10 w-10"><Link to="/dashboard"><Logo className="h-10 w-10"/></Link></div> 
             <form className="flex flex-col justify-center items-center gap-8 " onSubmit={createTag}>
               <input
                 placeholder="(sticker)"

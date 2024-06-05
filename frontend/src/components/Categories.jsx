@@ -4,10 +4,11 @@
  export const Categories =({onSelectCategory}) =>{
     const [categories,setCategories]=useState([])
     const navigate=useNavigate()
-
+    const apiUrl =  import.meta.env.VITE_API_URL;
+    console.log(apiUrl)
 
     useEffect(()=>{
-        const result=axios.get("https://finance-tracker-api-gray.vercel.app/category").then((response)=>{
+        const result=axios.get( `${apiUrl}/category`).then((response)=>{
             setCategories(response.data)
             console.log(categories)
         })
